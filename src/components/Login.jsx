@@ -4,7 +4,7 @@ import { useAuth } from '../contexts/AuthContext';
 import './Login.css';
 
 const Login = () => {
-  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const { login, error } = useAuth();
@@ -15,8 +15,8 @@ const Login = () => {
     setIsLoading(true);
 
     try {
-      await login(username, password);
-      navigate('/');
+      await login(email, password);
+      navigate('/home'); // Redirect to home after successful login
     } catch (err) {
       console.error('Login error:', err);
     } finally {
@@ -30,12 +30,12 @@ const Login = () => {
       {error && <div className="error-message">{error}</div>}
       <form onSubmit={handleSubmit}>
         <div className="form-group">
-          <label htmlFor="username">Username:</label>
+          <label htmlFor="email">Email:</label> {/* Updated label */}
           <input
-            type="text"
-            id="username"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
+            type="email" // Changed input type to email
+            id="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)} // Updated state setter
             required
           />
         </div>

@@ -1,0 +1,174 @@
+.home-page {
+    padding: 20px;
+    max-width: 800px;
+    margin: 0 auto;
+    font-family: Arial, sans-serif;
+    background-color: #f5f5f5;
+}
+
+.home-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding: 10px;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.post-container {
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+    margin: 40px 0;
+    padding: 24px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.post-container:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
+}
+
+.post-header {
+    padding: 15px;
+    border-bottom: 1px solid #eee;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.post-author {
+    font-weight: bold;
+    color: #078383;
+}
+
+.post-date {
+    color: #666;
+    font-size: 0.9em;
+}
+
+.post-content {
+    padding: 24px;
+    line-height: 1.75;
+    font-size: 1rem;
+    color: #444;
+    background-color: #fafafa;
+    border-radius: 12px;
+}
+
+.post-footer {
+    padding: 15px;
+    border-top: 1px solid #eee;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #f8f9fa;
+}
+
+.like-section {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.like-button {
+    background: none;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+    transition: color 0.2s ease;
+}
+
+.like-button.liked {
+    color: red;
+}
+
+.like-count {
+    color: #666;
+    font-size: 0.9em;
+}
+
+.post-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.edit-button,
+.delete-button {
+    padding: 6px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: all 0.2s;
+}
+
+.delete-button {
+    background-color: #dc3545;
+    color: white;
+    border: none;
+}
+
+.delete-button:hover {
+    background-color: #c82333;
+}
+
+.no-posts-message {
+    text-align: center;
+    padding: 40px;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.no-posts-message a {
+    color: #007bff;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.no-posts-message a:hover {
+    text-decoration: underline;
+}
+
+
+/* Animation for like button */
+
+@keyframes likeAnimation {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.2);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+.like-button.liked {
+    animation: likeAnimation 0.3s ease-in-out;
+    color: #dc3545;
+}
+
+
+/* Responsive design */
+
+@media (max-width: 768px) {
+    .home-page {
+        padding: 10px;
+    }
+    .post-container {
+        margin-bottom: 15px;
+    }
+    .post-header,
+    .post-content,
+    .post-footer {
+        padding: 10px;
+    }
+    .post-actions {
+        flex-direction: column;
+        gap: 5px;
+    }
+}

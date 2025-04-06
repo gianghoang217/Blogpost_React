@@ -1,5 +1,3 @@
-// src/contexts/AuthContext.js
-
 import React, { createContext, useState, useEffect, useContext } from 'react';
 import { authService } from '../services/api';
 
@@ -12,9 +10,19 @@ export const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     const fetchUser = async () => {
+      // Check if the user is already stored in localStorage
+      const storedUser = localStorage.getItem('currentUser');
+      if (storedUser) {
+        setCurrentUser(JSON.parse(storedUser));
+        setLoading(false);
+        return;
+      }
+
       try {
         const userData = await authService.getCurrentUser();
         setCurrentUser(userData);
+        // Persist user to localStorage
+        localStorage.setItem('currentUser', JSON.stringify(userData));
       } catch (err) {
         console.error('Not authenticated', err);
         setCurrentUser(null);
@@ -23,14 +31,21 @@ export const AuthProvider = ({ children }) => {
       }
     };
 
-    fetchUser();
-  }, []);
+    // Only fetch user if currentUser is not already set
+    if (!currentUser) {
+      fetchUser();
+    } else {
+      setLoading(false);
+    }
+  }, [currentUser]); // This hook now depends on currentUser to avoid calling the API unnecessarily
 
-  const login = async (username, password) => {
+  const login = async (email, password) => {
     setError(null);
     try {
-      const user = await authService.login({ username, password });
+      const user = await authService.login({ email, password });
       setCurrentUser(user);
+      // Store the user in localStorage after successful login
+      localStorage.setItem('currentUser', JSON.stringify(user));
       return user;
     } catch (err) {
       setError(err.response?.data || 'Login failed');
@@ -42,6 +57,8 @@ export const AuthProvider = ({ children }) => {
     try {
       await authService.logout();
       setCurrentUser(null);
+      // Remove user from localStorage on logout
+      localStorage.removeItem('currentUser');
     } catch (err) {
       setError(err.response?.data || 'Logout failed');
       throw err;
