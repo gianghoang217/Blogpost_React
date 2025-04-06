@@ -8,33 +8,6 @@ This is a simple blog application built with React. It allows users to register,
 - Create, Update, and Delete Posts
 - Like Posts
 
-### Project Structure
-```
-blogpost-react
-├── public
-│   ├── index.html
-│   └── favicon.ico
-├── src
-│   ├── components
-│   │   ├── RegisterForm.jsx
-│   │   ├── PostList.jsx
-│   │   ├── PostItem.jsx
-│   │   └── LikeButton.jsx
-│   ├── pages
-│   │   ├── RegisterPage.jsx
-│   │   ├── HomePage.jsx
-│   │   └── PostPage.jsx
-│   ├── services
-│   │   └── api.js
-│   ├── App.jsx
-│   ├── index.js
-│   └── styles
-│       └── styles.css
-├── package.json
-├── .gitignore
-└── README.md
-```
-
 ### Prerequisites
 Make sure you have the following installed:
 - Node.js (for running JavaScript applications)
