@@ -1,0 +1,51 @@
+.dashboard-header {
+    background-color: #f8f9fa;
+    padding: 10px 20px;
+    border-bottom: 1px solid #ddd;
+}
+
+.dashboard-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.nav-left ul {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+    padding: 0;
+    margin: 0;
+    align-items: center;
+}
+
+.nav-left li {
+    display: inline;
+}
+
+.dashboard-header a {
+    text-decoration: none;
+    color: #007bff;
+}
+
+.dashboard-header a:hover {
+    text-decoration: underline;
+}
+
+.logout-button {
+    padding: 5px 12px;
+    background-color: #ff4d4d;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.logout-button:hover {
+    background-color: #cc0000;
+}
+
+.dashboard-content {
+    padding: 20px;
+}
