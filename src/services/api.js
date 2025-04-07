@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const API_URL = "https://blogpost-flask-tl3m.vercel.app"
-// "http://127.0.0.1:5000/"
+    // "http://127.0.0.1:5000/"
 
 
 // Create axios instance with credentials
@@ -31,7 +31,7 @@ apiClient.interceptors.response.use(
             localStorage.removeItem('access_token');
 
             // Redirect to login
-            window.location.href = '/login';
+            // window.location.href = '/login';
         }
         return Promise.reject(error);
     }
