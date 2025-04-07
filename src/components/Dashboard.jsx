@@ -6,10 +6,12 @@ import './Dashboard.css';
 const Dashboard = () => {
   const navigate = useNavigate();
   const [userName, setUserName] = useState('');
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const handleLogout = async () => {
     try {
       await authService.logout();
+      setIsLoggedIn(false);
       navigate('/login');
     } catch (error) {
       console.error('Error during logout:', error);
@@ -21,9 +23,11 @@ const Dashboard = () => {
       try {
         const user = await authService.getCurrentUser();
         setUserName(user?.name || user?.username || 'there');
+        setIsLoggedIn(true);
       } catch (error) {
         console.error('Error fetching current user:', error);
         setUserName('there'); // fallback
+        setIsLoggedIn(false);
       }
     };
 
@@ -45,9 +49,15 @@ const Dashboard = () => {
       </ul>
     </div>
     <div className="nav-right">
-      <button className="logout-button" onClick={handleLogout}>
-        Logout
-      </button>
+              {isLoggedIn ? (
+              <button className="logout-button" onClick={handleLogout}>
+                Logout
+              </button>
+            ) : (
+              <button className="login-button" onClick={() => navigate('/login')}>
+                Login
+              </button>
+            )}
     </div>
   </nav>
 </header>

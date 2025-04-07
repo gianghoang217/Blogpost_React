@@ -32,7 +32,8 @@
     text-decoration: underline;
 }
 
-.logout-button {
+.logout-button,
+.login-button {
     padding: 5px 12px;
     background-color: #ff4d4d;
     color: white;
