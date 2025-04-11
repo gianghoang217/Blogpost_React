@@ -20,10 +20,13 @@ const Login = () => {
       await login(email, password);
       setSuccessMessage('Login successful! Redirecting to home...');
       
-      // Wait for 1.5 seconds to show the success message before redirecting
-      setTimeout(() => {
-        navigate('/home'); // Redirect to home after successful login
-      }, 1500);
+     // Store the timer ID so we can clean it up
+     const timerId = setTimeout(() => {
+      navigate('/home');
+    }, 1500);
+    
+    // Clean up the timer when the component unmounts
+    return () => clearTimeout(timerId);
     } catch (err) {
       console.error('Login error:', err);
       setIsLoading(false);
