@@ -7,19 +7,25 @@ const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [successMessage, setSuccessMessage] = useState('');
   const { login, error } = useAuth();
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsLoading(true);
+    setSuccessMessage('');
 
     try {
       await login(email, password);
-      navigate('/home'); // Redirect to home after successful login
+      setSuccessMessage('Login successful! Redirecting to home...');
+      
+      // Wait for 1.5 seconds to show the success message before redirecting
+      setTimeout(() => {
+        navigate('/home'); // Redirect to home after successful login
+      }, 1500);
     } catch (err) {
       console.error('Login error:', err);
-    } finally {
       setIsLoading(false);
     }
   };
@@ -28,14 +34,16 @@ const Login = () => {
     <div className="login-container">
       <h2>Login</h2>
       {error && <div className="error-message">{error}</div>}
+      {successMessage && <div className="success-message">{successMessage}</div>}
+      
       <form onSubmit={handleSubmit}>
         <div className="form-group">
-          <label htmlFor="email">Email:</label> {/* Updated label */}
+          <label htmlFor="email">Email:</label>
           <input
-            type="email" // Changed input type to email
+            type="email"
             id="email"
             value={email}
-            onChange={(e) => setEmail(e.target.value)} // Updated state setter
+            onChange={(e) => setEmail(e.target.value)}
             required
           />
         </div>

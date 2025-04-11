@@ -12,6 +12,8 @@ const Register = () => {
         password2: ''
     });
     const [error, setError] = useState('');
+    const [successMessage, setSuccessMessage] = useState('');
+    const [isSubmitting, setIsSubmitting] = useState(false);
 
     const handleChange = (e) => {
         setFormData({
@@ -23,21 +25,33 @@ const Register = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         setError('');
+        setSuccessMessage('');
+        setIsSubmitting(true);
 
         if (formData.password !== formData.password2) {
             setError('Passwords do not match');
+            setIsSubmitting(false);
             return;
         }
 
         try {
-            await authService.register({
+            const response = await authService.register({
                 username: formData.username,
                 email: formData.email,
                 password: formData.password
             });
-            navigate('/todos');
+            
+            // Display success message from response or a default message
+            setSuccessMessage(response.message || 'Registration successful! Redirecting to login...');
+            
+            // Wait for 2 seconds to show the success message before redirecting
+            setTimeout(() => {
+                navigate('/login');
+            }, 2000);
+            
         } catch (err) {
             setError(err.response?.data?.message || 'Registration failed');
+            setIsSubmitting(false);
         }
     };
 
@@ -45,6 +59,8 @@ const Register = () => {
         <div className="register-container">
             <h2>Register</h2>
             {error && <div className="error-message">{error}</div>}
+            {successMessage && <div className="success-message">{successMessage}</div>}
+            
             <form onSubmit={handleSubmit}>
                 <div className="form-group">
                     <label>Username:</label>
@@ -86,7 +102,9 @@ const Register = () => {
                         required
                     />
                 </div>
-                <button type="submit">Register</button>
+                <button type="submit" disabled={isSubmitting}>
+                    {isSubmitting ? 'Registering...' : 'Register'}
+                </button>
             </form>
         </div>
     );
